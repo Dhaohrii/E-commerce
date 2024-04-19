@@ -169,7 +169,7 @@ footer {
     margin: auto;
     width: 100%; /* Set the container width to 100% */
     overflow: hidden; /* Hide overflow to prevent horizontal scroll */
-    max-height: 300px;
+    max-height: 600px;
   }
   
   .carousel-slide {
