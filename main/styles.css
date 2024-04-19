@@ -164,3 +164,66 @@ footer {
 .search-container button:hover {
     background-color: rgba(105, 6, 100, 0.5);
 }
+.carousel-container {
+    position: relative;
+    margin: auto;
+    width: 100%; /* Set the container width to 100% */
+    overflow: hidden; /* Hide overflow to prevent horizontal scroll */
+    max-height: 300px;
+  }
+  
+  .carousel-slide {
+    display: flex;
+  width: 300%; /* Set the width of the slide container to 300% to accommodate all images */
+  transition: transform 0.5s ease; /* Add smooth transition effect */
+  }
+  
+  .carousel-slide img {
+    
+    display: none;
+    width: 100vw; /* Set the width of images to 100% of viewport width */
+  height: auto; /* Maintain aspect ratio */
+  }
+  
+  .prev-btn,
+  .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .prev-btn {
+    left: 0;
+  }
+  
+  .next-btn {
+    right: 0;
+  }
+  #add-product-button,
+#delete-all-button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#add-product-button:hover,
+#delete-all-button:hover {
+  background-color: #45a049; /* Darker green */
+}
+
+#add-product-button:active,
+#delete-all-button:active {
+  background-color: #3e8e41; /* Active color */
+}

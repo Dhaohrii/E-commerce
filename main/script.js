@@ -1,4 +1,39 @@
 document.addEventListener("DOMContentLoaded", function() {
+    // search 
+    document.getElementById('search').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var searched=document.getElementsByName('search').value;
+        const products = getProductsFromStorage().filter(product => product.name===searched);
+        const productList = document.getElementById('product-list');
+        productList.innerHTML = '';
+
+        products.forEach((product, index) => {
+            const productCard = document.createElement('section');
+            productCard.classList.add('product');
+            if(document.title.trim() ==="DashBoard"){
+                productCard.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <h2>${product.name}</h2>
+                <p class="description">${product.description}</p>
+                <span class="price">$${product.price}</span>
+                <div class="product-actions">
+                    <button class="edit-button" data-index="${index}">Edit</button>
+                    <button class="delete-button" data-index="${index}">Delete</button>
+                </div>
+            `;
+            productList.appendChild(productCard);
+            }
+            else {
+                productCard.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <h2>${product.name}</h2>
+                <p class="description">${product.description}</p>
+                <span class="price">$${product.price}</span>
+            `;
+            productList.appendChild(productCard);
+            }
+        });
+    });
     // Function to retrieve product data from local storage
     function getProductsFromStorage() {
         const productsArray = localStorage.getItem('products');
@@ -10,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var jsonArray = JSON.stringify(products)
         localStorage.setItem('products', jsonArray);
     }
+    
 
     // Function to display products from local storage
     function displayProducts() {
@@ -50,10 +86,26 @@ document.addEventListener("DOMContentLoaded", function() {
         if (event.target.classList.contains('edit-button')) {
             const index = event.target.dataset.index;
             const products = getProductsFromStorage();
-            // You can implement edit functionality here
-            alert('Edit button clicked for product at index: ' + index);
+            const productToEdit = products[index]; // Get the product to edit
+    
+            // Populate the form fields with the data of the product to edit
+            document.getElementById("productName").value = productToEdit.name;
+            document.getElementById("productDescription").value = productToEdit.description;
+            document.getElementById("productPrice").value = productToEdit.price;
+            document.getElementById("productImage").value = productToEdit.image;
+    
+            // Change the form action to edit mode
+            document.getElementById("addProductForm").setAttribute("data-mode", "edit");
+            document.getElementById("addProductForm").setAttribute("data-index", index);
+    
+            // Hide the add product button while in edit mode
+            document.getElementById('add-product-button').style.display = 'none';
+    
+            // Scroll to the top of the form
+            document.getElementById('addProductForm').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
     });
+    
 
     // Event listener for delete button
     document.addEventListener('click', function(event) {
@@ -121,4 +173,33 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Display products when the page loads
     displayProducts();
+   
+
 });
+if(document.title.trim()==="RBK Shop"){
+document.addEventListener("DOMContentLoaded", function() {
+    const slideImages = document.querySelectorAll('.carousel-slide img');
+    let currentSlide = 0;
+  
+    // Show initial slide
+    slideImages[currentSlide].style.display = 'block';
+  
+    // Function to move to the next slide
+    function nextSlide() {
+      slideImages[currentSlide].style.display = 'none';
+      currentSlide = (currentSlide + 1) % slideImages.length;
+      slideImages[currentSlide].style.display = 'block';
+    }
+  
+    // Function to move to the previous slide
+    function prevSlide() {
+      slideImages[currentSlide].style.display = 'none';
+      currentSlide = (currentSlide - 1 + slideImages.length) % slideImages.length;
+      slideImages[currentSlide].style.display = 'block';
+    }
+  
+    // Event listeners for next and previous buttons
+    document.querySelector('.next-btn').addEventListener('click', nextSlide);
+    document.querySelector('.prev-btn').addEventListener('click', prevSlide);
+  });
+}
