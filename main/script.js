@@ -20,7 +20,8 @@ document.addEventListener("DOMContentLoaded", function() {
         products.forEach((product, index) => {
             const productCard = document.createElement('section');
             productCard.classList.add('product');
-            productCard.innerHTML = `
+            if(document.title.trim() ==="DashBoard"){
+                productCard.innerHTML = `
                 <img src="${product.image}" alt="${product.name}">
                 <h2>${product.name}</h2>
                 <p class="description">${product.description}</p>
@@ -31,6 +32,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 </div>
             `;
             productList.appendChild(productCard);
+            }
+            else {
+                productCard.innerHTML = `
+                <img src="${product.image}" alt="${product.name}">
+                <h2>${product.name}</h2>
+                <p class="description">${product.description}</p>
+                <span class="price">$${product.price}</span>
+            `;
+            productList.appendChild(productCard);
+            }
         });
     }
 
@@ -57,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // Event listener for add product button
+    if(document.title.trim() === "DashBoard"){
     document.getElementById('add-product-button').addEventListener('click', (event) => {
         event.preventDefault(); // Prevent form submission
         
@@ -71,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 <textarea id="productDescription" name="productDescription" required></textarea>
                 
                 <label for="productPrice">Price:</label>
-                <input type="text" id="productPrice" name="productPrice" step="0.01" required>
+                <input type="number" id="productPrice" name="productPrice" step="0.01" required>
                 
                 <label for="productImage">Product Img URL:</label>
                 <input type="text" id="productImage" name="productImage" required>
@@ -105,6 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
         displayProducts(); // Refresh the displayed product list
         alert('Delete All Products button clicked');
     });
+    }
 
     // Display products when the page loads
     displayProducts();
